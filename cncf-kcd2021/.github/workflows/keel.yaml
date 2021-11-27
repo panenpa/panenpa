@@ -1,0 +1,17 @@
+name: Sample Workflow To Notify Keel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    name: Sample Workflow To Notify Keel
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Deployment Webhook
+        run: |
+          curl -s -H "Content-Type: application/json" \
+            -d '{ "name": "ghcr.io/${{ github.repository }}", "tag": "latest" }' \
+            https://keel-listens-here.panenpa.com/v1/webhook/native
